@@ -182,6 +182,13 @@ std::istream& operator>>(std::istream& in, Forward& a){
 }
 
 // math.h functions
+
+namespace std {
+
+Forward abs(Forward a){
+  return {abs(a.val), a.val >= 0. ? a.dot : -a.dot};
+}
+
 Forward acos(Forward a){
   return {acos(a.val), -1./sqrt(1-a.val*a.val) * a.dot};
 }
@@ -271,7 +278,14 @@ Forward pow(Forward a, Forward b){
   }
   return {pow(a.val,b.val), da * a.dot + db * b.dot};
 }
+Forward pow(Forward a, double b){
+  return pow(a, Forward(b));
+}
+Forward pow(double a, Forward b){
+  return pow(Forward(a), b);
+}
 
+}
 
 
 
