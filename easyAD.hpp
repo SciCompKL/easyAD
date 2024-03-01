@@ -1,6 +1,8 @@
 #ifndef EASYAD_HPP
 #define EASYAD_HPP
 
+#ifdef __cplusplus
+
 #include <math.h>
 #include <ostream>
 #include <istream>
@@ -16,6 +18,8 @@ struct Forward {
     return val;
   }
 };
+
+#include "traits.hpp"
 
 // basic arithmetic with two operands
 Forward operator +(Forward a, Forward b){
@@ -201,7 +205,8 @@ Forward pow(double a, Forward b){
 }
 
 }
-
-
+#else
+  #define ForwardIfPossible(x) (x)
+#endif // __cplusplus
 
 #endif // EASYAD_HPP
