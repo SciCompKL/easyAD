@@ -2,6 +2,8 @@
 #define EASYAD_HPP
 
 #include <math.h>
+#include <ostream>
+#include <istream>
 
 struct Forward {
   double val;
@@ -171,12 +173,10 @@ bool operator<=(T const& a, Forward const& b){
 
 
 // stream I/O
-template<typename Stream>
-Stream& operator<<(Stream& out, Forward a){
+std::ostream& operator<<(std::ostream& out, Forward a){
   return out << a.val;
 }
-template<typename Stream>
-Stream& operator>>(Stream& in, Forward& a){
+std::istream& operator>>(std::istream& in, Forward& a){
   a.dot = 0.0;
   return in >> a.val;
 }
