@@ -15,7 +15,8 @@ struct Forward {
   constexpr Forward(double val): val(val), dot(0.0) {}
   constexpr Forward(): val(0.0), dot(0.0) {}
 
-  operator double(){
+  template<typename T>
+  explicit operator T(){
     return val;
   }
 };
