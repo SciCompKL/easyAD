@@ -6,6 +6,7 @@
 #include <math.h>
 #include <ostream>
 #include <istream>
+#include <type_traits>
 
 struct Forward {
   double val;
@@ -36,64 +37,64 @@ inline Forward operator /(Forward a, Forward b){
 } 
 
 // overloads with one non-active operand
-template<typename T>
+template<typename T, std::enable_if_t<std::is_arithmetic<T>::value,bool> = true>
 Forward operator +(Forward a, T b){
   Forward b_f = b;
   return a + b_f;
 }
-template<typename T>
+template<typename T, std::enable_if_t<std::is_arithmetic<T>::value,bool> = true>
 Forward operator +(T a, Forward b){
   Forward a_f = a;
   return a_f + b;
 }
-template<typename T>
+template<typename T, std::enable_if_t<std::is_arithmetic<T>::value,bool> = true>
 Forward operator -(Forward a, T b){
   Forward b_f = b;
   return a - b_f;
 }
-template<typename T>
+template<typename T, std::enable_if_t<std::is_arithmetic<T>::value,bool> = true>
 Forward operator -(T a, Forward b){
   Forward a_f = a;
   return a_f - b;
 }
-template<typename T>
+template<typename T, std::enable_if_t<std::is_arithmetic<T>::value,bool> = true>
 Forward operator *(Forward a, T b){
   Forward b_f = b;
   return a * b_f;
 }
-template<typename T>
+template<typename T, std::enable_if_t<std::is_arithmetic<T>::value,bool> = true>
 Forward operator *(T a, Forward b){
   Forward a_f = a;
   return a_f * b;
 }
-template<typename T>
+template<typename T, std::enable_if_t<std::is_arithmetic<T>::value,bool> = true>
 Forward operator /(Forward a, T b){
   Forward b_f = b;
   return a / b_f;
 }
-template<typename T>
+template<typename T, std::enable_if_t<std::is_arithmetic<T>::value,bool> = true>
 Forward operator /(T a, Forward b){
   Forward a_f = a;
   return a_f / b;
 }
 
 // arithmetic assignment operators
-template<typename T>
+template<typename T, std::enable_if_t<std::is_arithmetic<T>::value,bool> = true>
 Forward& operator +=(Forward& a, T const& b){
   a = a + b;
   return a;
 } 
-template<typename T>
+template<typename T, std::enable_if_t<std::is_arithmetic<T>::value,bool> = true>
 Forward& operator -=(Forward& a, T const& b){
   a = a - b;
   return a;
 } 
-template<typename T>
+template<typename T, std::enable_if_t<std::is_arithmetic<T>::value,bool> = true>
 Forward& operator *=(Forward& a, T const& b){
   a = a * b;
   return a;
 } 
-template<typename T>
+template<typename T, std::enable_if_t<std::is_arithmetic<T>::value,bool> = true>
 Forward& operator /=(Forward& a, T const& b){
   a = a / b;
   return a;
