@@ -12,7 +12,7 @@ T&& ForwardIfPossible(T&& t){
 #endif
 #if 1
 template<typename T>
-typename std::conditional<std::is_floating_point<T>::value, Forward&&, T&&>::type ForwardIfPossible(T&& t){
+typename std::conditional<std::is_arithmetic<std::remove_reference<T>>::value, Forward&&, T&&>::type ForwardIfPossible(T&& t){
   return std::forward<T>(t);
 }
 #endif
