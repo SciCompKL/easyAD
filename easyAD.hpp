@@ -79,22 +79,22 @@ Forward operator /(T a, Forward b){
 }
 
 // arithmetic assignment operators
-template<typename T, std::enable_if_t<std::is_arithmetic<T>::value,bool> = true>
+template<typename T>
 Forward& operator +=(Forward& a, T const& b){
   a = a + b;
   return a;
 } 
-template<typename T, std::enable_if_t<std::is_arithmetic<T>::value,bool> = true>
+template<typename T>
 Forward& operator -=(Forward& a, T const& b){
   a = a - b;
   return a;
 } 
-template<typename T, std::enable_if_t<std::is_arithmetic<T>::value,bool> = true>
+template<typename T>
 Forward& operator *=(Forward& a, T const& b){
   a = a * b;
   return a;
 } 
-template<typename T, std::enable_if_t<std::is_arithmetic<T>::value,bool> = true>
+template<typename T>
 Forward& operator /=(Forward& a, T const& b){
   a = a / b;
   return a;
