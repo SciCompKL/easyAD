@@ -110,71 +110,23 @@ inline Forward operator +(Forward a){
 }
 
 // comparisons
-bool operator==(Forward const& a, Forward const& b){
+inline bool operator==(Forward const& a, Forward const& b){
   return a.val==b.val;
 }
-template<typename T>
-bool operator==(Forward const& a, T const& b){
-  return a.val==b;
-}
-template<typename T>
-bool operator==(T const& a, Forward const& b){
-  return a==b.val;
-}
-bool operator!=(Forward const& a, Forward const& b){
+inline bool operator!=(Forward const& a, Forward const& b){
   return a.val!=b.val;
 }
-template<typename T>
-bool operator!=(Forward const& a, T const& b){
-  return a.val!=b;
-}
-template<typename T>
-bool operator!=(T const& a, Forward const& b){
-  return a!=b.val;
-}
-bool operator>(Forward const& a, Forward const& b){
+inline bool operator>(Forward const& a, Forward const& b){
   return a.val>b.val;
 }
-template<typename T>
-bool operator>(Forward const& a, T const& b){
-  return a.val>b;
-}
-template<typename T>
-bool operator>(T const& a, Forward const& b){
-  return a>b.val;
-}
-bool operator<(Forward const& a, Forward const& b){
+inline bool operator<(Forward const& a, Forward const& b){
   return a.val<b.val;
 }
-template<typename T>
-bool operator<(Forward const& a, T const& b){
-  return a.val<b;
-}
-template<typename T>
-bool operator<(T const& a, Forward const& b){
-  return a<b.val;
-}
-bool operator>=(Forward const& a, Forward const& b){
+inline bool operator>=(Forward const& a, Forward const& b){
   return a.val>=b.val;
 }
-template<typename T>
-bool operator>=(Forward const& a, T const& b){
-  return a.val>=b;
-}
-template<typename T>
-bool operator>=(T const& a, Forward const& b){
-  return a>=b.val;
-}
-bool operator<=(Forward const& a, Forward const& b){
+inline bool operator<=(Forward const& a, Forward const& b){
   return a.val<=b.val;
-}
-template<typename T>
-bool operator<=(Forward const& a, T const& b){
-  return a.val<=b;
-}
-template<typename T>
-bool operator<=(T const& a, Forward const& b){
-  return a<=b.val;
 }
 
 
