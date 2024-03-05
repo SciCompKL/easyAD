@@ -36,29 +36,45 @@ inline Forward operator /(Forward a, Forward b){
 } 
 
 // overloads with one non-active operand
-inline Forward operator +(Forward a, double b){
-  return a + Forward(b);
+template<typename T>
+Forward operator +(Forward a, T b){
+  Forward b_f = b;
+  return a + b_f;
 }
-inline Forward operator +(double a, Forward b){
-  return Forward(a) + b;
+template<typename T>
+Forward operator +(T a, Forward b){
+  Forward a_f = a;
+  return a_f + b;
 }
-inline Forward operator -(Forward a, double b){
-  return a - Forward(b);
+template<typename T>
+Forward operator -(Forward a, T b){
+  Forward b_f = b;
+  return a - b_f;
 }
-inline Forward operator -(double a, Forward b){
-  return Forward(a) - b;
+template<typename T>
+Forward operator -(T a, Forward b){
+  Forward a_f = a;
+  return a_f - b;
 }
-inline Forward operator *(Forward a, double b){
-  return a * Forward(b);
+template<typename T>
+Forward operator *(Forward a, T b){
+  Forward b_f = b;
+  return a * b_f;
 }
-inline Forward operator *(double a, Forward b){
-  return Forward(a) * b;
+template<typename T>
+Forward operator *(T a, Forward b){
+  Forward a_f = a;
+  return a_f * b;
 }
-inline Forward operator /(Forward a, double b){
-  return a / Forward(b);
+template<typename T>
+Forward operator /(Forward a, T b){
+  Forward b_f = b;
+  return a / b_f;
 }
-inline Forward operator /(double a, Forward b){
-  return Forward(a) / b;
+template<typename T>
+Forward operator /(T a, Forward b){
+  Forward a_f = a;
+  return a_f / b;
 }
 
 // arithmetic assignment operators
