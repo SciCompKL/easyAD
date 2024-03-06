@@ -143,6 +143,21 @@ inline std::istream& operator>>(std::istream& in, Forward& a){
 
 namespace std {
 
+inline Forward max(Forward a, Forward b){
+  if(a>b){
+    return a;
+  } else {
+    return b;
+  }
+}
+inline Forward min(Forward a, Forward b){
+  if(a<b){
+    return a;
+  } else {
+    return b;
+  }
+}
+
 inline Forward abs(Forward a){
   return {abs(a.val), a.val >= 0. ? a.dot : -a.dot};
 }
