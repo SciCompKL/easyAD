@@ -72,6 +72,22 @@ constexpr Forward operator /(T a, Forward b){
   return Forward(a) / b;
 }
 
+// increment/decrement operators
+inline Forward& operator++(Forward& a){
+  ++a.val;
+  return a;
+}
+inline Forward& operator--(Forward& a){
+  ++a.val;
+  return a;
+}
+inline Forward operator++(Forward& a, int){
+  return a.val++;
+}
+inline Forward operator--(Forward& a, int){
+  return a.val++;
+}
+
 // arithmetic assignment operators
 template<typename T>
 Forward& operator +=(Forward& a, T const& b){
