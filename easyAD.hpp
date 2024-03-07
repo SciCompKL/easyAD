@@ -267,6 +267,9 @@ inline Forward pow(double a, Forward b){
 inline bool isfinite(Forward a){
   return isfinite(a.val);
 }
+inline bool isinf(Forward a){
+  return isinf(a.val);
+}
 inline bool isnan(Forward a){
   return isnan(a.val);
 }
@@ -301,7 +304,16 @@ using std::tanh;
 using std::atan2;
 using std::pow;
 using std::isfinite;
+using std::isinf;
 using std::isnan;
+
+#include <string>
+namespace std {
+  inline std::string to_string(Forward a){
+    return to_string(a.val);
+  }
+}
+
 #else
   #define ForwardIfPossible(x) (x)
 #endif // __cplusplus
