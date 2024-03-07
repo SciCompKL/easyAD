@@ -24,57 +24,57 @@ struct Forward {
 #include "traits.hpp"
 
 // basic arithmetic with two operands
-inline Forward operator +(Forward a, Forward b){
+constexpr inline Forward operator +(Forward a, Forward b){
   return {a.val+b.val, a.dot+b.dot};
 } 
-inline Forward operator -(Forward a, Forward b){
+constexpr inline Forward operator -(Forward a, Forward b){
   return {a.val-b.val, a.dot-b.dot};
 } 
-inline Forward operator *(Forward a, Forward b){
+constexpr inline Forward operator *(Forward a, Forward b){
   return {a.val*b.val, a.dot*b.val+a.val*b.dot};
 } 
-inline Forward operator /(Forward a, Forward b){
+constexpr inline Forward operator /(Forward a, Forward b){
   return {a.val/b.val, a.dot/b.val-a.val*b.dot/(b.val*b.val)};
 } 
 
 // overloads with one non-active operand
 template<typename T, std::enable_if_t<std::is_arithmetic<T>::value,bool> = true>
-Forward operator +(Forward a, T b){
+constexpr Forward operator +(Forward a, T b){
   Forward b_f = b;
   return a + b_f;
 }
 template<typename T, std::enable_if_t<std::is_arithmetic<T>::value,bool> = true>
-Forward operator +(T a, Forward b){
+constexpr Forward operator +(T a, Forward b){
   Forward a_f = a;
   return a_f + b;
 }
 template<typename T, std::enable_if_t<std::is_arithmetic<T>::value,bool> = true>
-Forward operator -(Forward a, T b){
+constexpr Forward operator -(Forward a, T b){
   Forward b_f = b;
   return a - b_f;
 }
 template<typename T, std::enable_if_t<std::is_arithmetic<T>::value,bool> = true>
-Forward operator -(T a, Forward b){
+constexpr Forward operator -(T a, Forward b){
   Forward a_f = a;
   return a_f - b;
 }
 template<typename T, std::enable_if_t<std::is_arithmetic<T>::value,bool> = true>
-Forward operator *(Forward a, T b){
+constexpr Forward operator *(Forward a, T b){
   Forward b_f = b;
   return a * b_f;
 }
 template<typename T, std::enable_if_t<std::is_arithmetic<T>::value,bool> = true>
-Forward operator *(T a, Forward b){
+constexpr Forward operator *(T a, Forward b){
   Forward a_f = a;
   return a_f * b;
 }
 template<typename T, std::enable_if_t<std::is_arithmetic<T>::value,bool> = true>
-Forward operator /(Forward a, T b){
+constexpr Forward operator /(Forward a, T b){
   Forward b_f = b;
   return a / b_f;
 }
 template<typename T, std::enable_if_t<std::is_arithmetic<T>::value,bool> = true>
-Forward operator /(T a, Forward b){
+constexpr Forward operator /(T a, Forward b){
   Forward a_f = a;
   return a_f / b;
 }
@@ -102,30 +102,30 @@ Forward& operator /=(Forward& a, T const& b){
 } 
 
 // basic arithmetic with one operand
-inline Forward operator -(Forward a){
+constexpr inline Forward operator -(Forward a){
   return {-a.val,-a.dot};
 }
-inline Forward operator +(Forward a){
+constexpr inline Forward operator +(Forward a){
   return a;
 }
 
 // comparisons
-inline bool operator==(Forward const& a, Forward const& b){
+constexpr inline bool operator==(Forward const& a, Forward const& b){
   return a.val==b.val;
 }
-inline bool operator!=(Forward const& a, Forward const& b){
+constexpr inline bool operator!=(Forward const& a, Forward const& b){
   return a.val!=b.val;
 }
-inline bool operator>(Forward const& a, Forward const& b){
+constexpr inline bool operator>(Forward const& a, Forward const& b){
   return a.val>b.val;
 }
-inline bool operator<(Forward const& a, Forward const& b){
+constexpr inline bool operator<(Forward const& a, Forward const& b){
   return a.val<b.val;
 }
-inline bool operator>=(Forward const& a, Forward const& b){
+constexpr inline bool operator>=(Forward const& a, Forward const& b){
   return a.val>=b.val;
 }
-inline bool operator<=(Forward const& a, Forward const& b){
+constexpr inline bool operator<=(Forward const& a, Forward const& b){
   return a.val<=b.val;
 }
 
@@ -158,90 +158,89 @@ inline Forward min(Forward a, Forward b){
   }
 }
 
-inline Forward abs(Forward a){
+constexpr inline Forward abs(Forward a){
   return {abs(a.val), a.val >= 0. ? a.dot : -a.dot};
 }
-
-inline Forward acos(Forward a){
+constexpr inline Forward acos(Forward a){
   return {acos(a.val), -1./sqrt(1-a.val*a.val) * a.dot};
 }
-inline Forward asin(Forward a){
+constexpr inline Forward asin(Forward a){
   return {asin(a.val), 1./sqrt(1-a.val*a.val) * a.dot};
 }
-inline Forward atan(Forward a){
+constexpr inline Forward atan(Forward a){
   return {atan(a.val), 1./(1+a.val*a.val) * a.dot};
 }
-inline Forward cos(Forward a){
+constexpr inline Forward cos(Forward a){
   return {cos(a.val), -sin(a.val) * a.dot};
 }
-inline Forward cosh(Forward a){
+constexpr inline Forward cosh(Forward a){
   return {cosh(a.val), sinh(a.val) * a.dot};
 }
-inline Forward exp(Forward a){
+constexpr inline Forward exp(Forward a){
   return {exp(a.val), exp(a.val) * a.dot};
 }
-inline Forward exp2(Forward a){
+constexpr inline Forward exp2(Forward a){
   return {exp2(a.val), exp2(a.val)*log(2.0) * a.dot};
 }
-inline Forward expm1(Forward a){
+constexpr inline Forward expm1(Forward a){
   return {expm1(a.val), exp(a.val) * a.dot};
 }
-inline Forward fabs(Forward a){
+constexpr inline Forward fabs(Forward a){
   return {fabs(a.val), (a.val>0?1.:-1.) * a.dot};
 }
-inline Forward floor(Forward a){
+constexpr inline Forward floor(Forward a){
   return {floor(a.val), 0.0};
 }
-inline Forward trunc(Forward a){
+constexpr inline Forward trunc(Forward a){
   return {trunc(a.val), 0.0};
 }
-inline Forward round(Forward a){
+constexpr inline Forward round(Forward a){
   return {round(a.val), 0.0};
 }
-inline Forward nearbyint(Forward a){
+constexpr inline Forward nearbyint(Forward a){
   return {nearbyint(a.val), 0.0};
 }
-inline Forward rint(Forward a){
+constexpr inline Forward rint(Forward a){
   return {rint(a.val), 0.0};
 }
-inline Forward log(Forward a){
+constexpr inline Forward log(Forward a){
   return {log(a.val), 1/a.val * a.dot};
 }
-inline Forward log2(Forward a){
+constexpr inline Forward log2(Forward a){
   return {log2(a.val), 1/(a.val*log(2.0)) * a.dot};
 }
-inline Forward log10(Forward a){
+constexpr inline Forward log10(Forward a){
   return {log10(a.val), 1/(a.val*log(10.0)) * a.dot};
 }
-inline Forward log1p(Forward a){
+constexpr inline Forward log1p(Forward a){
   return {log1p(a.val), 1/(a.val+1.0) * a.dot};
 }
-inline Forward sin(Forward a){
+constexpr inline Forward sin(Forward a){
   return {sin(a.val), cos(a.val) * a.dot};
 }
-inline Forward sinh(Forward a){
+constexpr inline Forward sinh(Forward a){
   return {sinh(a.val), cosh(a.val) * a.dot};
 }
-inline Forward sqrt(Forward a){
+constexpr inline Forward sqrt(Forward a){
   return {sqrt(a.val), 0.5/sqrt(a.val) * a.dot};
 }
-inline Forward cbrt(Forward a){
+constexpr inline Forward cbrt(Forward a){
   return {cbrt(a.val), cbrt(a.val)/(3.0*a.val) * a.dot};
 }
-inline Forward hypot(Forward a, Forward b){
+constexpr inline Forward hypot(Forward a, Forward b){
   return {hypot(a.val,b.val), a.val/hypot(a.val,b.val) * a.dot + b.val/hypot(a.val,b.val) * b.dot};
 }
-inline Forward tan(Forward a){
+constexpr inline Forward tan(Forward a){
   return {tan(a.val), 1/(cos(a.val)*cos(a.val)) * a.dot};
 }
-inline Forward tanh(Forward a){
+constexpr inline Forward tanh(Forward a){
   return {tanh(a.val), (1-tanh(a.val)*tanh(a.val)) * a.dot};
 }
-inline Forward atan2(Forward a, Forward b){
+constexpr inline Forward atan2(Forward a, Forward b){
   double norm = a.val*a.val + b.val*b.val;
   return {atan2(a.val,b.val), -b.val/norm * a.dot + a.val/norm * b.dot};
 }
-inline Forward pow(Forward a, Forward b){
+constexpr inline Forward pow(Forward a, Forward b){
   double da = 0., db = 0.;
   if(b.val!=0.0 && b.val!=-0.0){
     da = b.val*pow(a.val,b.val-1.0);
@@ -251,10 +250,10 @@ inline Forward pow(Forward a, Forward b){
   }
   return {pow(a.val,b.val), da * a.dot + db * b.dot};
 }
-inline Forward pow(Forward a, double b){
+constexpr inline Forward pow(Forward a, double b){
   return pow(a, Forward(b));
 }
-inline Forward pow(double a, Forward b){
+constexpr inline Forward pow(double a, Forward b){
   return pow(Forward(a), b);
 }
 
