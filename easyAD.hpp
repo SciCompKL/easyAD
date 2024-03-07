@@ -20,6 +20,7 @@ struct Forward {
     return val;
   }
 };
+using Gorward = Forward;
 
 #include "traits.hpp"
 
@@ -38,45 +39,37 @@ constexpr inline Forward operator /(Forward a, Forward b){
 } 
 
 // overloads with one non-active operand
-template<typename T, std::enable_if_t<std::is_arithmetic<T>::value,bool> = true>
+template<typename T, typename std::enable_if<std::is_arithmetic<T>::value,bool>::type = true>
 constexpr Forward operator +(Forward a, T b){
-  Forward b_f = b;
-  return a + b_f;
+  return a + Forward(b);
 }
-template<typename T, std::enable_if_t<std::is_arithmetic<T>::value,bool> = true>
+template<typename T, typename std::enable_if<std::is_arithmetic<T>::value,bool>::type = true>
 constexpr Forward operator +(T a, Forward b){
-  Forward a_f = a;
-  return a_f + b;
+  return Forward(a) + b;
 }
-template<typename T, std::enable_if_t<std::is_arithmetic<T>::value,bool> = true>
+template<typename T, typename std::enable_if<std::is_arithmetic<T>::value,bool>::type = true>
 constexpr Forward operator -(Forward a, T b){
-  Forward b_f = b;
-  return a - b_f;
+  return a - Forward(b);
 }
-template<typename T, std::enable_if_t<std::is_arithmetic<T>::value,bool> = true>
+template<typename T, typename std::enable_if<std::is_arithmetic<T>::value,bool>::type = true>
 constexpr Forward operator -(T a, Forward b){
-  Forward a_f = a;
-  return a_f - b;
+  return Forward(a) - b;
 }
-template<typename T, std::enable_if_t<std::is_arithmetic<T>::value,bool> = true>
+template<typename T, typename std::enable_if<std::is_arithmetic<T>::value,bool>::type = true>
 constexpr Forward operator *(Forward a, T b){
-  Forward b_f = b;
-  return a * b_f;
+  return a * Forward(b);
 }
-template<typename T, std::enable_if_t<std::is_arithmetic<T>::value,bool> = true>
+template<typename T, typename std::enable_if<std::is_arithmetic<T>::value,bool>::type = true>
 constexpr Forward operator *(T a, Forward b){
-  Forward a_f = a;
-  return a_f * b;
+  return Forward(a) * b;
 }
-template<typename T, std::enable_if_t<std::is_arithmetic<T>::value,bool> = true>
+template<typename T, typename std::enable_if<std::is_arithmetic<T>::value,bool>::type = true>
 constexpr Forward operator /(Forward a, T b){
-  Forward b_f = b;
-  return a / b_f;
+  return a / Forward(b);
 }
-template<typename T, std::enable_if_t<std::is_arithmetic<T>::value,bool> = true>
+template<typename T, typename std::enable_if<std::is_arithmetic<T>::value,bool>::type = true>
 constexpr Forward operator /(T a, Forward b){
-  Forward a_f = a;
-  return a_f / b;
+  return Forward(a) / b;
 }
 
 // arithmetic assignment operators
@@ -237,10 +230,9 @@ constexpr inline Forward tanh(Forward a){
   return {tanh(a.val), (1-tanh(a.val)*tanh(a.val)) * a.dot};
 }
 constexpr inline Forward atan2(Forward a, Forward b){
-  double norm = a.val*a.val + b.val*b.val;
-  return {atan2(a.val,b.val), -b.val/norm * a.dot + a.val/norm * b.dot};
+  return {atan2(a.val,b.val), -b.val/(a.val*a.val + b.val*b.val) * a.dot + a.val/(a.val*a.val + b.val*b.val) * b.dot};
 }
-constexpr inline Forward pow(Forward a, Forward b){
+inline Forward pow(Forward a, Forward b){
   double da = 0., db = 0.;
   if(b.val!=0.0 && b.val!=-0.0){
     da = b.val*pow(a.val,b.val-1.0);
@@ -250,10 +242,10 @@ constexpr inline Forward pow(Forward a, Forward b){
   }
   return {pow(a.val,b.val), da * a.dot + db * b.dot};
 }
-constexpr inline Forward pow(Forward a, double b){
+inline Forward pow(Forward a, double b){
   return pow(a, Forward(b));
 }
-constexpr inline Forward pow(double a, Forward b){
+inline Forward pow(double a, Forward b){
   return pow(Forward(a), b);
 }
 
