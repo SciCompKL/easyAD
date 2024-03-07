@@ -264,8 +264,44 @@ inline Forward pow(Forward a, double b){
 inline Forward pow(double a, Forward b){
   return pow(Forward(a), b);
 }
+inline bool isfinite(Forward a){
+  return isfinite(a.val);
+}
+inline bool isnan(Forward a){
+  return isnan(a.val);
+}
 
 }
+using std::abs;
+using std::acos;
+using std::asin;
+using std::atan;
+using std::cos;
+using std::cosh;
+using std::exp;
+using std::exp2;
+using std::expm1;
+using std::fabs;
+using std::floor;
+using std::trunc;
+using std::round;
+using std::nearbyint;
+using std::rint;
+using std::log;
+using std::log2;
+using std::log10;
+using std::log1p;
+using std::sin;
+using std::sinh;
+using std::sqrt;
+using std::cbrt;
+using std::hypot;
+using std::tan;
+using std::tanh;
+using std::atan2;
+using std::pow;
+using std::isfinite;
+using std::isnan;
 #else
   #define ForwardIfPossible(x) (x)
 #endif // __cplusplus
