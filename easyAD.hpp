@@ -13,6 +13,7 @@ struct Forward {
   double dot;
   constexpr Forward(double val, double dot): val(val), dot(dot) {}
   constexpr Forward(double val): val(val), dot(0.0) {}
+  constexpr Forward(Forward const& forw): val(forw.val), dot(forw.dot) {}
   Forward() = default; // If a non-trivial default constructor were used, Forward could not be used in unions
 
   template<typename T>
