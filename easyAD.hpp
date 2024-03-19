@@ -192,6 +192,15 @@ constexpr inline Forward cos(Forward a){
 constexpr inline Forward cosh(Forward a){
   return {cosh(a.val), sinh(a.val) * a.dot};
 }
+constexpr inline Forward copysign(Forward a, Forward b){
+  return {copysign(a.val,b.val), copysign(1.0, a.val*b.val) * a.dot};
+}
+constexpr inline Forward erf(Forward a){
+  return {erf(a.val), 2.0/sqrt(M_PI) * exp(-a.val*a.val) * a.dot};
+}
+constexpr inline Forward erfc(Forward a){
+  return {erfc(a.val), -2.0/sqrt(M_PI) * exp(-a.val*a.val) * a.dot};
+}
 constexpr inline Forward exp(Forward a){
   return {exp(a.val), exp(a.val) * a.dot};
 }
@@ -207,6 +216,9 @@ constexpr inline Forward fabs(Forward a){
 constexpr inline Forward floor(Forward a){
   return {floor(a.val), 0.0};
 }
+constexpr inline Forward ceil(Forward a){
+  return {ceil(a.val), 0.0};
+}
 constexpr inline Forward trunc(Forward a){
   return {trunc(a.val), 0.0};
 }
@@ -218,6 +230,13 @@ constexpr inline Forward nearbyint(Forward a){
 }
 constexpr inline Forward rint(Forward a){
   return {rint(a.val), 0.0};
+}
+constexpr inline Forward fmod(Forward a, Forward b){
+  return {fmod(a.val, b.val), 1.0 * a.dot - trunc(a.val/b.val) * b.dot};
+}
+inline Forward modf(Forward a, Forward* b){
+  b->dot = 0.;
+  return {modf(a.val, &b->val), a.dot};
 }
 constexpr inline Forward log(Forward a){
   return {log(a.val), 1/a.val * a.dot};
@@ -290,15 +309,21 @@ using std::asinh;
 using std::atan;
 using std::cos;
 using std::cosh;
+using std::copysign;
+using std::erf;
+using std::erfc;
 using std::exp;
 using std::exp2;
 using std::expm1;
 using std::fabs;
 using std::floor;
+using std::ceil;
 using std::trunc;
 using std::round;
 using std::nearbyint;
 using std::rint;
+using std::fmod;
+using std::modf;
 using std::log;
 using std::log2;
 using std::log10;
