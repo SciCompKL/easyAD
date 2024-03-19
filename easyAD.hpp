@@ -174,8 +174,14 @@ constexpr inline Forward abs(Forward a){
 constexpr inline Forward acos(Forward a){
   return {acos(a.val), -1./sqrt(1-a.val*a.val) * a.dot};
 }
+constexpr inline Forward acosh(Forward a){
+  return {acosh(a.val), 1./sqrt(a.val*a.val-1) * a.dot};
+}
 constexpr inline Forward asin(Forward a){
   return {asin(a.val), 1./sqrt(1-a.val*a.val) * a.dot};
+}
+constexpr inline Forward asinh(Forward a){
+  return {asinh(a.val), 1./sqrt(a.val*a.val+1) * a.dot};
 }
 constexpr inline Forward atan(Forward a){
   return {atan(a.val), 1./(1+a.val*a.val) * a.dot};
@@ -278,7 +284,9 @@ inline bool isnan(Forward a){
 }
 using std::abs;
 using std::acos;
+using std::acosh;
 using std::asin;
+using std::asinh;
 using std::atan;
 using std::cos;
 using std::cosh;
