@@ -20,6 +20,8 @@ struct Forward {
   explicit constexpr operator T() const {
     return val;
   }
+
+  constexpr Forward& operator=(Forward const&) = default;
 };
 using Gorward = Forward;
 
