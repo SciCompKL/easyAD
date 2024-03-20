@@ -17,7 +17,7 @@ struct Forward {
   Forward() = default; // If a non-trivial default constructor were used, Forward could not be used in unions
 
   template<typename T>
-  explicit operator T() const {
+  explicit constexpr operator T() const {
     return val;
   }
 };
