@@ -296,6 +296,14 @@ inline Forward pow(Forward a, double b){
 inline Forward pow(double a, Forward b){
   return pow(Forward(a), b);
 }
+inline Forward tgamma(Forward a){
+  double derivative = (tgamma(a.val*1.01)-tgamma(a.val*0.99))/(a.val*0.02); // TODO
+  return {tgamma(a.val), derivative * a.dot};
+}
+inline Forward lgamma(Forward a){
+  double derivative = (lgamma(a.val*1.01)-lgamma(a.val*0.99))/(a.val*0.02); // TODO
+  return {lgamma(a.val), derivative * a.dot};
+}
 inline bool isfinite(Forward a){
   return isfinite(a.val);
 }
@@ -345,6 +353,8 @@ using std::tan;
 using std::tanh;
 using std::atan2;
 using std::pow;
+using std::lgamma;
+using std::tgamma;
 using std::isfinite;
 using std::isinf;
 using std::isnan;
