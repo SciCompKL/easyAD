@@ -231,6 +231,12 @@ constexpr inline Forward nearbyint(Forward a){
 constexpr inline Forward rint(Forward a){
   return {rint(a.val), 0.0};
 }
+constexpr inline long lrint(Forward a){
+  return lrint(a.val);
+}
+constexpr inline long long llrint(Forward a){
+  return llrint(a.val);
+}
 constexpr inline Forward fmod(Forward a, Forward b){
   return {fmod(a.val, b.val), 1.0 * a.dot - trunc(a.val/b.val) * b.dot};
 }
@@ -322,6 +328,8 @@ using std::trunc;
 using std::round;
 using std::nearbyint;
 using std::rint;
+using std::lrint;
+using std::llrint;
 using std::fmod;
 using std::modf;
 using std::log;
