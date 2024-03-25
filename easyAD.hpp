@@ -13,15 +13,15 @@ struct Forward {
   double dot;
   constexpr Forward(double _val, double _dot): val(_val), dot(_dot) {}
   constexpr Forward(double _val): val(_val), dot(0.0) {}
-  constexpr Forward(Forward const& forw): val(forw.val), dot(forw.dot) {}
-  Forward() = default; // If a non-trivial default constructor were used, Forward could not be used in unions
+  Forward() = default; // trivial default constructor so Forward can be used in unions
+  constexpr Forward& operator=(Forward const&) = default; // trivial copy constructor so Forward is trivially copyable
+  constexpr Forward(Forward const& forw) = default;
 
   template<typename T>
   explicit constexpr operator T() const {
     return val;
   }
 
-  constexpr Forward& operator=(Forward const&) = default;
 };
 using Gorward = Forward;
 
