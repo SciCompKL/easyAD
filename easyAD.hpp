@@ -361,6 +361,48 @@ using std::isfinite;
 using std::isinf;
 using std::isnan;
 
+#include <limits>
+template<typename From, typename To>
+struct forward_numeric_limits : std::numeric_limits<From> {
+  using Base = std::numeric_limits<From>;
+  using Base::is_specialized;
+  using Base::is_signed;
+  using Base::is_integer;
+  using Base::is_exact;
+  using Base::has_infinity;
+  using Base::has_quiet_NaN;
+  using Base::has_signaling_NaN;
+  using Base::has_denorm;
+  using Base::has_denorm_loss;
+  using Base::round_style;
+  using Base::is_iec559;
+  using Base::is_bounded;
+  using Base::is_modulo;
+  using Base::digits;
+  using Base::digits10;
+  using Base::radix;
+  using Base::min_exponent;
+  using Base::min_exponent10;
+  using Base::max_exponent;
+  using Base::max_exponent10;
+  using Base::traps;
+  using Base::tinyness_before;
+  static constexpr To min() { return Base::min(); }
+  static constexpr To lowest() { return Base::lowest(); }
+  static constexpr To max() { return Base::max(); }
+  static constexpr To epsilon() { return Base::epsilon(); }
+  static constexpr To round_error() { return Base::round_error(); }
+  static constexpr To infinity() { return Base::infinity(); }
+  static constexpr To quiet_NaN() { return Base::quiet_NaN(); }
+  static constexpr To signaling_NaN() { return Base::signaling_NaN(); }
+  static constexpr To denorm_min() { return Base::denorm_min(); }
+};
+
+template<> struct std::numeric_limits<Forward> : forward_numeric_limits<double,Forward> {};
+template<> struct std::numeric_limits<Forward const> : forward_numeric_limits<double,Forward> {};
+template<> struct std::numeric_limits<Forward volatile> : forward_numeric_limits<double,Forward> {};
+template<> struct std::numeric_limits<Forward const volatile> : forward_numeric_limits<double,Forward> {};
+
 #include <string>
 namespace std {
   inline std::string to_string(Forward a){
