@@ -264,7 +264,8 @@ constexpr inline Forward sin(Forward a){
 constexpr inline Forward sinh(Forward a){
   return {sinh(a.val), cosh(a.val) * a.dot};
 }
-constexpr inline Forward sqrt(Forward a){
+inline Forward sqrt(Forward a){
+  if(a.val==0) return {0.,0.};
   return {sqrt(a.val), 0.5/sqrt(a.val) * a.dot};
 }
 constexpr inline Forward cbrt(Forward a){
