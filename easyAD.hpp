@@ -293,7 +293,7 @@ inline Forward pow(Forward a, Forward b){
   if(b.val!=0.0 && b.val!=-0.0){
     da = b.val*pow(a.val,b.val-1.0);
   }
-  if(a.val<=0.){
+  if(a.val>=0.){
     db = pow(a.val,b.val)*log(a.val);
   }
   return {pow(a.val,b.val), da * a.dot + db * b.dot};
